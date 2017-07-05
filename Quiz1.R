@@ -14,3 +14,16 @@ nrow(q1data1)
 
 #2
 
+#Violates one variable per column
+
+#3
+
+download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FDATA.gov_NGAP.xlsx", destfile = "C:/Coursera/Getting and Cleaning Data/Q3data.xlsx")
+
+library(xlsx)
+
+file<-"C:/Coursera/Getting and Cleaning Data/Q3data.xlsx"
+
+q3data<-read.xlsx("C:/Coursera/Getting and Cleaning Data/Q3data.xlsx", sheetIndex = 1)
+
+
