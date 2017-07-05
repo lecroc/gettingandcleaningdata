@@ -18,12 +18,16 @@ nrow(q1data1)
 
 #3
 
-download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FDATA.gov_NGAP.xlsx", destfile = "C:/Coursera/Getting and Cleaning Data/Q3data.xlsx")
+library(openxlsx)
 
-library(xlsx)
+fileURL<-"https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FDATA.gov_NGAP.xlsx"
 
-file<-"C:/Coursera/Getting and Cleaning Data/Q3data.xlsx"
+download.file(fileURL, destfile="./Q3data.xlsx", mode = "wb")
+datedownloaded<-date()
 
-q3data<-read.xlsx("C:/Coursera/Getting and Cleaning Data/Q3data.xlsx", sheetIndex = 1)
+dat<-read.xlsx("./Q3data.xlsx", sheet=1, rows = 18:23, cols = 7:15)
 
+answer<-sum(dat$Zip*dat$Ext,na.rm=T)
+
+answer
 
