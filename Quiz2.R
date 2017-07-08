@@ -29,7 +29,7 @@ head(ans2)  # yep, it is.
 
 #3
 
-rver<-unique(acs$AGEP) # store unique values for AGEP using r commance on acs data frame
+rver<-unique(acs$AGEP) # store unique values for AGEP using r command on acs data frame
 
 rver  # display what that returns
 
@@ -58,10 +58,26 @@ answer # display counts for answer
 
 #5
 
-fileURL25<-"https://d396qusza40orc.cloudfront.net/getdata%2Fwksst8110.for"
+fileURL25<-"https://d396qusza40orc.cloudfront.net/getdata%2Fwksst8110.for" # store URL in flleURL25
 
-download.file(fileURL25, destfile = "./Q25data.for", mode = "wb")
+download.file(fileURL25, destfile = "./Q25data.for", mode = "wb") # download file as binary to Q25data.for in wd
 
-datedl25<-date()
+datedl25<-date()  # record date downloaded
 
-f<-read.fwf("Q25data.for", widths=109, skip = 2)
+widths<-c(15,4,1,8,4,1,8,4,1,8,4,1,8) # store widths of columns I want
+
+f<-read.fwf("Q25data.for", skip=4, widths=widths) # read in data to data fram f skipping headers using widths
+
+cols<-c(1:2,4,5,7,8,10,11,13) # select the columns with numbers
+
+f<-f[,cols] # change f to only include the columns in cols
+
+f # look at f to make sure it is what I want
+
+names(f)<-c("C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9") # add names to the columns
+
+class(f) # check to make sure I have a data frame
+
+answer<-sum(f$C4) # sum the values in column 4 and store in anser
+
+answer  # print the answer
