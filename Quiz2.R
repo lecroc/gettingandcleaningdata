@@ -2,12 +2,40 @@
 
 # Quiz 2
 
-#1. 2013-11-07T13:25:07Z
+#1. 
+
+library(httr)   # initialize required libraries.....
+library(RJSONIO)
+library(jsonlite)
+
+# Initialize app
+
+myapp<-oauth_app("github", key="db4264554527afa924a8", secret = "a8e5f720bbe89502d232d12fb4bfa9740d46fab3")
+
+# get credentials
+
+github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
 
 
+# use API
 
+gtoken<-config(token=github_token)
 
+req <- GET("https://api.github.com/users/jtleek/repos", gtoken)
 
+stop_for_status(req)
+
+dat1<-content(req)  # read in content of url
+
+dat2<-jsonlite::fromJSON(toJSON(dat1))  # convert url content to data frame of lists
+
+url<-unlist(dat2$svn_url)  # unlist the url names into a vector
+
+date_created<-unlist(dat2$created_at)  # unlist the dates created into a vector
+
+answer<-as.data.frame(cbind(url, date_created))  # bind the two vectors together 
+
+answer
 
 #2
 
@@ -78,6 +106,6 @@ names(f)<-c("C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9") # add names to
 
 class(f) # check to make sure I have a data frame
 
-answer<-sum(f$C4) # sum the values in column 4 and store in anser
+answer<-sum(f$C4) # sum the values in column 4 and store in answer
 
 answer  # print the answer
