@@ -33,9 +33,9 @@ url<-unlist(dat2$svn_url)  # unlist the url names into a vector
 
 date_created<-unlist(dat2$created_at)  # unlist the dates created into a vector
 
-answer<-as.data.frame(cbind(url, date_created))  # bind the two vectors together 
+answer1<-as.data.frame(cbind(url, date_created))  # bind the two vectors together 
 
-answer
+answer1
 
 #2
 
@@ -44,15 +44,15 @@ library(sqldf)
 
 fileURL22<-"https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06pid.csv"  # set fileURL22 to file URL
 
-download.file(fileURL2, destfile = "./Q22data.csv") # download file and store on wd at Q22data.csv
+download.file(fileURL22, destfile = "./Q22data.csv") # download file and store on wd at Q22data.csv
 
 datedl22<-date()  # record date downloaded
 
 acs<-read.csv("Q22data.csv") # read csv file into data frame
 
-ans2<-sqldf("select pwgtp1 from acs where AGEP < 50")  # this command seems like the correct one....
+answer2<-sqldf("select pwgtp1 from acs where AGEP < 50")  # this command seems like the correct one....
 
-head(ans2)  # yep, it is.
+head(answer2)  # yep, it is.
 
 
 #3
@@ -80,8 +80,8 @@ an42<-nchar(lines[20])
 an43<-nchar(lines[30])
 an44<-nchar(lines[100])
 
-answer<-c(an41,an42,an43,an44) # store counts in a list
-answer # display counts for answer
+answer4<-c(an41,an42,an43,an44) # store counts in a list
+answer4 # display counts for answer
 
 
 #5
@@ -106,6 +106,6 @@ names(f)<-c("C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9") # add names to
 
 class(f) # check to make sure I have a data frame
 
-answer<-sum(f$C4) # sum the values in column 4 and store in answer
+answer5<-sum(f$C4) # sum the values in column 4 and store in answer
 
-answer  # print the answer
+answer5  # print the answer
