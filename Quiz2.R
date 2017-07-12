@@ -109,3 +109,5 @@ class(f) # check to make sure I have a data frame
 answer5<-sum(f$C4) # sum the values in column 4 and store in answer
 
 answer5  # print the answer
+
+
