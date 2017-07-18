@@ -33,8 +33,23 @@ answer2 # print answer
 
 #3
 
+library(dplyr)
 
+fileURL31<-"https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv"
+fileURL32<-"https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Country.csv"
 
+download.file(fileURL31, destfile = "./FGDP.csv") # download file 1
+download.file(fileURL32, destfile = "./Country.csv") # download file 2
 
+GDP<-read.csv("FGDP.csv") # read in data file 1
+CTR<-read.csv("Country.csv") # read in data file 2
 
+GDP<-tbl_df(GDP)
+CTR<-tbl_df(CTR)
 
+GDP<-GDP[-(1:4),]
+GDP<-GDP[,-c(3,6:10)]
+
+names(GDP)<-c("CountryCode", "GDPRank", "CountryName", "GDP$")
+
+names(GDP)<-c("C")
