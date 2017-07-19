@@ -41,15 +41,46 @@ fileURL32<-"https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Count
 download.file(fileURL31, destfile = "./FGDP.csv") # download file 1
 download.file(fileURL32, destfile = "./Country.csv") # download file 2
 
-GDP<-read.csv("FGDP.csv") # read in data file 1
+GDP<-read.csv("FGDP.csv", skip = 4, nrow=190) # read in data file 1, only 1st 190 rows
+GDP<-select(GDP, X, X.1, X.3, X.4) # selec columns with data
 CTR<-read.csv("Country.csv") # read in data file 2
 
-GDP<-tbl_df(GDP)
-CTR<-tbl_df(CTR)
+names(GDP)<-c("CountryCode", "GDPRank", "CountryName", "GDP$") # provide new column names for GDP
 
-GDP<-GDP[-(1:4),]
-GDP<-GDP[,-c(3,6:10)]
+mrg<-merge(GDP, CTR, by="CountryCode") # merges on CountryCode as only similar column in both tables
 
-names(GDP)<-c("CountryCode", "GDPRank", "CountryName", "GDP$")
+mrg$GDPRank<-as.numeric(mrg$GDPRank)
 
-names(GDP)<-c("C")
+mrg<-arrange(mrg, desc(GDPRank)) # sort descending by GDP rank - USA should be last
+
+matches<-nrow(mrg) # calculate number of matches
+
+lucky13<-mrg$CountryName[13] # find 13th Country
+
+matches 
+
+lucky13
+
+#4
+
+grpmrg<-mrg %>%                       
+        group_by(Income.Group) %>%   # group mrg data table by Income.Group
+        summarize(mean=mean(GDPRank)) # summarize income Group by mean of GDPRank
+
+grpmrg  # display means
+
+
+#5
+
+mrg1<-mrg %>% mutate(quantile = ntile(GDPRank, 5)) # add column quantile with 5 buckets
+
+grp2mrg<-mrg1 %>%
+         group_by(quantile)  # group data by quantile
+
+answer<-table(grp2mrg$quantile, grp2mrg$Income.Group) # create a table of counts of income groups by quantile
+
+answer # display table
+
+
+
+
